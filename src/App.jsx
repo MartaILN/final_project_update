@@ -184,7 +184,7 @@ function App() {
       <Header isAuthenticated={isAuthenticated} user={user} onSignOut={handleSignOut} />
       <div className="flex-1">
         <Routes>
-          <Route path="/about" element={<AboutPage />} />
+          <Route path="/about" element={<div style={{ marginTop: '-80px' }}><AboutPage /></div>} />
           <Route path="/trip/:id" element={<TripDetail />} />
           <Route path="/sign-in" element={
             <div className="min-h-[80vh] flex items-center justify-center">

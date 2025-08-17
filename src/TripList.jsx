@@ -7,6 +7,7 @@ export default function TripList({
   onEdit = () => {},
   onDelete = () => {},
   onToggleDone = () => {},
+  onRefreshTrips = () => {},
 }) {
   const [showEmailInputId, setShowEmailInputId] = useState(null);
   const [emailInput, setEmailInput] = useState('');
@@ -39,7 +40,7 @@ export default function TripList({
             .eq('id', tripId);
         }
         alert('E-mail byl odeslán!');
-        navigate(`/trip/${tripId}`);
+        if (typeof onRefreshTrips === 'function') onRefreshTrips();
       } else {
         alert('Chyba při odesílání: ' + data.error);
       }
@@ -88,17 +89,18 @@ export default function TripList({
                         <div className="text-3xl font-extrabold text-[#07689f] mb-1 ml-[20px]">{trip.date} – {trip.returnDate}</div>
                         <div className="text-lg text-[#07689f] ml-[20px]">{trip.start} <span className="mx-2">→</span> {trip.destination} <span className="italic">({trip.transport})</span></div>
                       </div>
-                      <button
-                        onClick={() => !isShared && onDelete(trip.id)}
-                        className={`bg-[#fa8072] text-white px-3 py-1 rounded-[4px] text-sm flex items-center justify-center h-[30px] border-0 transition-colors ${isShared ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#c0392b]'}`}
-                        aria-label="Smazat cestu"
-                        disabled={isShared}
-                      >
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <line x1="4" y1="4" x2="14" y2="14" stroke="#fdf6e3" strokeWidth="2" strokeLinecap="round" />
-                          <line x1="14" y1="4" x2="4" y2="14" stroke="#fdf6e3" strokeWidth="2" strokeLinecap="round" />
-                        </svg>
-                      </button>
+                      {isOwner && (
+                        <button
+                          onClick={() => onDelete(trip.id)}
+                          className="bg-[#fa8072] text-white px-3 py-1 rounded-[4px] text-sm flex items-center justify-center h-[30px] border-0 transition-colors hover:bg-[#c0392b]"
+                          aria-label="Smazat cestu"
+                        >
+                          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <line x1="4" y1="4" x2="14" y2="14" stroke="#fdf6e3" strokeWidth="2" strokeLinecap="round" />
+                            <line x1="14" y1="4" x2="4" y2="14" stroke="#fdf6e3" strokeWidth="2" strokeLinecap="round" />
+                          </svg>
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>

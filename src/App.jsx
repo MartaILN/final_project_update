@@ -13,6 +13,11 @@ import AboutPage from './pages/About';
 import TripDetail from './pages/TripDetail';
 
 function App() {
+  // Funkce pro re-fetch tripů
+  const refreshTrips = async () => {
+    const { data, error } = await supabase.from('trips').select('*').order('id', { ascending: true });
+    if (!error) setTrips(data || []);
+  };
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [trips, setTrips] = useState([]);
@@ -66,10 +71,10 @@ function App() {
   // Přidání nové cesty nebo úprava existující
   const handleAddTrip = async (tripData) => {
     if (editingTrip) {
-      // Úprava cesty
+      // Úprava cesty, zachovat shared_with
       const { error } = await supabase
         .from('trips')
-        .update({ ...tripData })
+        .update({ ...tripData, shared_with: editingTrip.shared_with })
         .eq('id', editingTrip.id);
       if (error) {
         alert('Chyba při ukládání: ' + error.message);
@@ -206,6 +211,7 @@ function App() {
                   onEdit={handleEditTrip}
                   onDelete={handleDeleteTrip}
                   onToggleDone={handleToggleDone}
+                  onRefreshTrips={refreshTrips}
                 />
               </div>
             }

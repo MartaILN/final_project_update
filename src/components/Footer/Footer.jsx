@@ -1,6 +1,6 @@
 export function Footer() {
     return (
-  <footer className="w-full bg-gray-100 py-4 pb-[-2px] mt-auto shadow-inner">
+      <footer className="w-full bg-blue-700 text-white py-4 text-center text-sm shadow-md mt-auto" style={{marginBottom: '40px'}}>
         <nav className="flex justify-end gap-[20px] pr-[100px] items-center">
           <div className="flex gap-[20px] items-center">
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-600 active:text-gray-600 focus:text-gray-600 visited:text-gray-600 border border-[#f5ecd7] focus:border-[#f5ecd7] active:border-[#f5ecd7] rounded-[8px] bg-transparent focus:bg-transparent active:bg-transparent flex items-center justify-center" style={{ width: '36px', height: '36px', padding: '0' }}>

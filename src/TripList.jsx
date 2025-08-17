@@ -11,6 +11,7 @@ export default function TripList({
   const [showEmailInputId, setShowEmailInputId] = useState(null);
   const [emailInput, setEmailInput] = useState('');
   const navigate = useNavigate();
+  console.log('TripList renderuje, počet trips:', trips.length, trips);
   // Funkce pro odeslání e-mailu přes backend
   const sendEmailViaBackend = async (tripId, email) => {
     const url = `${window.location.origin}/trip/${tripId}`;

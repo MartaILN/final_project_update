@@ -5,7 +5,12 @@ export function Header({ isAuthenticated, user, onSignOut }) {
     return (
     <header className="w-full fixed top-0 left-0 z-50 bg-gradient-to-r from-[#07689f] to-[#43c6ac] text-white py-6 px-6 rounded-b-2xl shadow-xl font-sans">
             <div className="flex flex-row items-center w-full max-w-6xl mx-auto justify-between gap-4">
-                <h1 className="text-3xl font-extrabold tracking-wide drop-shadow-lg text-left pl-[40px]" style={{ color: '#f5ecd7', marginRight: '20px' }}>My Trip</h1>
+                <h1
+                    className="text-4xl text-left pl-[40px] drop-shadow-lg"
+                    style={{ fontFamily: 'Pacifico, cursive', color: '#f5ecd7', fontStyle: 'italic', fontWeight: '400', marginRight: '20px', letterSpacing: '1px' }}
+                >
+                    My Trip
+                </h1>
                 <nav className="flex items-center gap-[25px] text-lg ml-auto pr-[40px] z-10">
                     {isAuthenticated && <Link to="/" className="border border-[#f5ecd7] border-[1.5px] rounded-[4px] px-[20px] py-[10px] flex items-center font-semibold text-[#f5ecd7] text-3xl hover:text-[#f5ecd7] transition-colors hover:bg-[#f5ecd7]/10 no-underline">Home</Link>}
                                         {!isAuthenticated && (

@@ -23,10 +23,13 @@ function App() {
   const [filterDone, setFilterDone] = useState('all');
   const [filterTransport, setFilterTransport] = useState('all');
   const [sortBy, setSortBy] = useState('date');
-  // Přidáme možnost sortingu podle sdílené
+
   // sortBy může být 'date', 'price', 'shared'
   const [sortOrder, setSortOrder] = useState('asc');
   const [searchDestination, setSearchDestination] = useState('');
+  useEffect(() => {
+    console.log('Filtry změněny:', { filterDone, filterTransport, sortBy, sortOrder, searchDestination });
+  }, [filterDone, filterTransport, sortBy, sortOrder, searchDestination]);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -131,20 +134,23 @@ function App() {
   // Filtrování a řazení trips podle hodnot z TripFilter
   const getFilteredSortedTrips = () => {
     let filtered = [...trips];
-    if (filterDone !== 'all') {
-      if (filterDone === 'shared') {
-        const currentEmail = user?.email || '';
-        const currentId = user?.id || '';
-        filtered = filtered.filter(trip => Array.isArray(trip.shared_with) && trip.shared_with.includes(currentEmail) && trip.user_id !== currentId);
-      } else {
-        filtered = filtered.filter(trip => filterDone === 'done' ? trip.done : !trip.done);
-      }
+    // Pokud je filterDone 'all', nefiltruj podle stavu
+    if (filterDone === 'shared') {
+      const currentEmail = user?.email || '';
+      const currentId = user?.id || '';
+      filtered = filtered.filter(trip => Array.isArray(trip.shared_with) && trip.shared_with.includes(currentEmail) && trip.user_id !== currentId);
+    } else if (filterDone === 'done') {
+      filtered = filtered.filter(trip => trip.done);
+    } else if (filterDone === 'notdone') {
+      filtered = filtered.filter(trip => !trip.done);
     }
     if (filterTransport !== 'all') {
       filtered = filtered.filter(trip => trip.transport === filterTransport);
     }
     if (searchDestination.trim() !== '') {
+      console.log('Filtruji podle destinace:', searchDestination);
       filtered = filtered.filter(trip => trip.destination && trip.destination.toLowerCase().includes(searchDestination.toLowerCase()));
+      console.log('Výsledek filtrování:', filtered);
     }
     filtered.sort((a, b) => {
       let valA, valB;

@@ -2,7 +2,7 @@ import React from 'react';
 
 const AboutPage = () => {
 	return (
-		<section className="bg-beige-100 text-gray-800 px-6 py-12 md:px-20" style={{
+		<section className="min-h-screen w-full bg-beige-100 text-gray-800 px-6 py-12 md:px-20" style={{
 			backgroundImage: "url('/mountain.jpg')",
 			backgroundSize: "cover",
 			backgroundPosition: "center",

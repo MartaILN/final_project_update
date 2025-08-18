@@ -19,6 +19,7 @@ app.get('/ping', (req, res) => {
 // Načtení API klíče z proměnné prostředí
 require('dotenv').config();
 const BREVO_API_KEY = process.env.BREVO_API_KEY || '';
+console.log('BREVO_API_KEY:', BREVO_API_KEY);
 
 app.post('/send-email', async (req, res) => {
   const { to, subject, text } = req.body;
